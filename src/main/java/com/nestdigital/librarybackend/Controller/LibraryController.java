@@ -5,6 +5,7 @@ import com.nestdigital.librarybackend.Model.LibraryModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -25,4 +26,13 @@ public class LibraryController {
     public List<LibraryModel>viewlibrary(){
         return (List<LibraryModel>) dao.findAll();
     }
+
+    @CrossOrigin(origins = "*")
+    @Transactional
+    @PostMapping(path = "/deletebook",consumes = "application/json",produces = "application/json")
+    public String deletebook(@RequestBody LibraryModel library){
+        dao.deleteBookById(library.getId());
+        return "{status:'success'}";
+    }
+
 }
