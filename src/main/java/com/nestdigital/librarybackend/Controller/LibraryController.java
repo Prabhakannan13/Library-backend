@@ -37,8 +37,14 @@ public class LibraryController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path = "/searchbook",consumes = "application/json",produces = "application/json")
-    public List<LibraryModel>searchbook(@RequestBody LibraryModel library){
+    public List<LibraryModel>searchBook(@RequestBody LibraryModel library){
         return (List<LibraryModel>) dao.searchBook(library.getBookname());
     }
-
+    @CrossOrigin(origins = "*")
+    @Transactional
+    @PostMapping(path = "/editbook",consumes = "application/json",produces = "application/json")
+    public String editbook(@RequestBody LibraryModel library){
+        dao.editBook(library.getAuthor(),library.getBookname(),library.getDescription(), library.getId());
+        return "{status:'success}";
+    }
 }
