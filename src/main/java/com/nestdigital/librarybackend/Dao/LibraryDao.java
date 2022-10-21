@@ -14,4 +14,8 @@ public interface LibraryDao extends CrudRepository<LibraryModel,Integer> {
 
     @Query(value = "SELECT `id`, `author`, `bookname`, `description` FROM `library` WHERE `bookname`=:bookname",nativeQuery = true)
     List<LibraryModel>searchBook(String bookname);
+
+    @Modifying
+    @Query(value = "UPDATE `library` SET `author`= :author,`bookname`= :bookname,`description`= :description WHERE `id`= :id",nativeQuery = true)
+    void editBook(String author, String bookname, String description, Integer id );
 }
